@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC349A4A1B1D22BC0032E79F /* HtmlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC349A491B1D22BC0032E79F /* HtmlRequest.swift */; };
 		BCA045411B1A315500A983B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA045401B1A315500A983B3 /* AppDelegate.swift */; };
 		BCA045431B1A315500A983B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA045421B1A315500A983B3 /* MainViewController.swift */; };
 		BCA045461B1A315500A983B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA045441B1A315500A983B3 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC349A491B1D22BC0032E79F /* HtmlRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlRequest.swift; sourceTree = "<group>"; };
 		BCA0453B1B1A315500A983B3 /* timeTracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timeTracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCA0453F1B1A315500A983B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCA045401B1A315500A983B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				BCA045401B1A315500A983B3 /* AppDelegate.swift */,
 				BCA045421B1A315500A983B3 /* MainViewController.swift */,
+				BC349A491B1D22BC0032E79F /* HtmlRequest.swift */,
 				BCA045441B1A315500A983B3 /* Main.storyboard */,
 				BCA045471B1A315500A983B3 /* Images.xcassets */,
 				BCA045491B1A315500A983B3 /* LaunchScreen.xib */,
@@ -226,6 +229,7 @@
 			files = (
 				BCA045431B1A315500A983B3 /* MainViewController.swift in Sources */,
 				BCA045411B1A315500A983B3 /* AppDelegate.swift in Sources */,
+				BC349A4A1B1D22BC0032E79F /* HtmlRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +425,7 @@
 				BCA0455C1B1A315500A983B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BCA0455D1B1A315500A983B3 /* Build configuration list for PBXNativeTarget "timeTrackingTests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +434,7 @@
 				BCA0455F1B1A315500A983B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

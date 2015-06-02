@@ -31,10 +31,10 @@ class MainViewController: UIViewController {
             
             var objParams: AnyObject! = NSUserDefaults.standardUserDefaults().objectForKey(param_params);
             var params = objParams as! Dictionary<String, String>
-            var user = params["user"];
-            println(user);
-            println(params[param_pass]);
-            println(params[param_dataMarcacao]);
+
+            self.loginField.text = params[param_user];
+            self.passwdField.text = params[param_pass];
+            self.dataMarcacaoField.text = params[param_dataMarcacao];
         } else {
             println("Sem usuário configurado");
         }
@@ -53,9 +53,12 @@ class MainViewController: UIViewController {
         if(loginHasValue && passwdHasValue) {
             var dataMarcacao : String = "21/12/1212 12:12";
             
-            var params : Dictionary<String, String> = [param_user : loginField.text, param_pass: passwdField.text, param_dataMarcacao : dataMarcacao];
+            var params = [param_user : loginField.text, param_pass: passwdField.text, param_dataMarcacao : dataMarcacao] as Dictionary<String, String>;
             var userDefaults = NSUserDefaults.standardUserDefaults();
             userDefaults.setObject(params, forKey: param_params);
+            
+            let htmlRequest = HtmlRequest();
+            htmlRequest.doPost(loginField.text, passwd : passwdField.text);
             
             self.marcacaoLabel.text = "Marcação realizada com sucesso!";
             self.dataMarcacaoField.text = dataMarcacao;
