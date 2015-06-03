@@ -63,42 +63,4 @@ class HtmlRequest: NSObject {
         var urlConn = URLConnection();
         urlConn.post(params, headers:headers, url: URL_TT_CHECK_IN_OUT, callBack: callBack);
     }
-//    
-//    func post(params : Dictionary<NSString, NSString>, url : String, callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
-//        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
-//        var session = NSURLSession.sharedSession()
-//        request.HTTPMethod = "POST"
-//        
-//        for header in headers {
-//            request.addValue((header.1 as! String), forHTTPHeaderField: header.0 as! String)
-//        }
-//
-//        var contentString = NSMutableString();
-//            if (count(params) > 0) {
-//                var first = true;
-//                for param in params {
-//                    if (!first) {
-//                        contentString.appendString("&")
-//                    }
-//                    first = false;
-//                    
-//                    contentString.appendString(param.0.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-//                    contentString.appendString("=");
-//                    contentString.appendString(param.1.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!);
-//                }
-//            }
-//
-//
-//        var err: NSError?
-//        request.HTTPBody = contentString.dataUsingEncoding(NSUTF8StringEncoding)
-//
-//        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-//            let req = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-//            
-//            callBack?(data: data, response: response, error: error)
-//
-//        })
-//        
-//        task.resume()
-//    }
 }
