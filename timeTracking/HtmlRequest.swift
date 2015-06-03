@@ -60,7 +60,6 @@ class HtmlRequest: NSObject {
         params["userName"] = user;
         params["password"] = passwd;
         
-        var urlConn = URLConnection();
-        urlConn.post(params, headers:headers, url: URL_TT_CHECK_IN_OUT, callBack: callBack);
+        URLConnection().post(params, headers:headers, url: URL_TT_CHECK_IN_OUT, callBack: callBack);
     }
 }
