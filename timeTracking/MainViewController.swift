@@ -15,10 +15,10 @@ class MainViewController: UIViewController {
     @IBOutlet weak var marcacaoLabel: UILabel!
     @IBOutlet weak var dataMarcacaoField: UILabel!
     
-    var param_user : String = "user"
-    var param_pass : String = "pass"
-    var param_dataMarcacao : String = "dataMarcacao"
-    var param_params : String = "params"
+    let param_user : String = "user"
+    let param_pass : String = "pass"
+    let param_dataMarcacao : String = "dataMarcacao"
+    let param_params : String = "params"
     
     var hasSubmitted: Bool = false;
     var loginHasValue : Bool = false;
@@ -28,6 +28,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         if(NSUserDefaults.standardUserDefaults().objectForKey(param_params) != nil) {
+            loginField.enabled = false
+            passwdField.enabled = false
             
             var objParams: AnyObject! = NSUserDefaults.standardUserDefaults().objectForKey(param_params);
             var params = objParams as! Dictionary<String, String>
@@ -44,6 +46,16 @@ class MainViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        [timeTracking getTime:^(NSDate* date){
+//            self.date = date;
+//            timer =  [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(onTimer:) userInfo:nil repeats:TRUE];
+//            [self lblDate].text = [format stringFromDate:date];
+//            }];
+//        [self registerForKeyboardNotifications];
+//        [super viewWillAppear:animated];
+//    }
 
     @IBAction func registrar(sender: AnyObject) {
         
@@ -51,17 +63,15 @@ class MainViewController: UIViewController {
         
         controlFieldContent(loginHasValue, passwdHasValue: passwdHasValue);
         if(loginHasValue && passwdHasValue) {
-            var dataMarcacao : String = "21/12/1212 12:12";
             
-            var params = [param_user : loginField.text, param_pass: passwdField.text, param_dataMarcacao : dataMarcacao] as Dictionary<String, String>;
-            var userDefaults = NSUserDefaults.standardUserDefaults();
-            userDefaults.setObject(params, forKey: param_params);
+            enviarMarcacao(loginField.text, passwd : passwdField.text);
             
-            let htmlRequest = HtmlRequest();
-            htmlRequest.doPost(loginField.text, passwd : passwdField.text);
+            atualizarDadosMarcacao("data marcacao")
+
+            //println(retorno)
             
-            self.marcacaoLabel.text = "Marcação realizada com sucesso!";
-            self.dataMarcacaoField.text = dataMarcacao;
+            //self.marcacaoLabel.text = retorno as! String;
+            //self.dataMarcacaoField.text = dataMarcacao;
 //        } else {
 //            controlFieldContent(loginHasValue, passwdHasValue: passwdHasValue);
 //            var userDefaults = NSUserDefaults.standardUserDefaults();
@@ -119,5 +129,31 @@ class MainViewController: UIViewController {
             updateValuesControl()
             controlFieldContent(loginHasValue, passwdHasValue: passwdHasValue);
         }
+    }
+    
+    func enviarMarcacao(login: String, passwd: String) {
+        let htmlRequest = HtmlRequest();
+        htmlRequest.doPost(login, passwd : passwd) { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            
+            var httpResponse = response as! NSHTTPURLResponse;
+            var responseHeaders = httpResponse.allHeaderFields as Dictionary;
+            //var tese: AnyObject? = responseHeaders["statusCode"]
+            self.dataMarcacaoField.text = responseHeaders["timeF"] as! String;
+            //sresponseHeaders.status
+            
+            //var te: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: nil)
+            //var tes = NSJSONSerialization.dataWithJSONObject(te!, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+            //println(tes)
+        }
+    }
+    
+    func atualizarDadosMarcacao(dataMarcacao: String) {
+        //var params = [param_user : loginField.text, param_pass: passwdField.text, param_dataMarcacao : dataMarcacao] as Dictionary<String, String>;
+        var userDefaults = NSUserDefaults.standardUserDefaults();
+        var params = userDefaults.objectForKey(param_params) as! Dictionary<String, String>;
+        params[param_dataMarcacao] = dataMarcacao;
+        userDefaults.setObject(params, forKey: param_params);
+        
+        
     }
 }
