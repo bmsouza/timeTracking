@@ -7,33 +7,51 @@
 //
 
 import UIKit
+import JavaScriptCore
 
-class MainViewController: UIViewController {
-
+class MainViewController: UIViewController, UIAlertViewDelegate {
+    
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwdField: UITextField!
     @IBOutlet weak var marcacaoLabel: UILabel!
     @IBOutlet weak var dataMarcacaoField: UILabel!
     
-    let param_user : String = "user"
-    let param_pass : String = "pass"
-    let param_dataMarcacao : String = "dataMarcacao"
-    let param_params : String = "params"
+    let param_user : String = "user";
+    let param_pass : String = "pass";
+    let param_dataMarcacao : String = "dataMarcacao";
+    let param_params : String = "params";
+    let fmt_data: String = "dd/MM/yyyy HH:mm:ss";
+    let dateFormatter: NSDateFormatter;
     
     var hasSubmitted: Bool = false;
     var loginHasValue : Bool = false;
     var passwdHasValue : Bool = false;
+    var timer: NSTimer!;
+    var dataMarcacao : NSDate;
+    
+    required init(coder aDecoder: NSCoder) {
+        
+        self.dateFormatter = NSDateFormatter();
+        self.dateFormatter.dateFormat = fmt_data;
+        self.dataMarcacao = NSDate();
+        super.init(coder: aDecoder);
+        
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0,
+            target: self,
+            selector: "onTimer",
+            userInfo: nil,
+            repeats: true);
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if(NSUserDefaults.standardUserDefaults().objectForKey(param_params) != nil) {
-            loginField.enabled = false
-            passwdField.enabled = false
             
             var objParams: AnyObject! = NSUserDefaults.standardUserDefaults().objectForKey(param_params);
             var params = objParams as! Dictionary<String, String>
-
+            
             self.loginField.text = params[param_user];
             self.passwdField.text = params[param_pass];
             self.dataMarcacaoField.text = params[param_dataMarcacao];
@@ -41,22 +59,18 @@ class MainViewController: UIViewController {
             println("Sem usuário configurado");
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        [timeTracking getTime:^(NSDate* date){
-//            self.date = date;
-//            timer =  [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(onTimer:) userInfo:nil repeats:TRUE];
-//            [self lblDate].text = [format stringFromDate:date];
-//            }];
-//        [self registerForKeyboardNotifications];
-//        [super viewWillAppear:animated];
-//    }
-
+    override func viewWillAppear(animated: Bool) {
+        
+        recuperarDataAtualServidor();
+        
+    }
+    
     @IBAction func registrar(sender: AnyObject) {
         
         updateValuesControl();
@@ -67,20 +81,18 @@ class MainViewController: UIViewController {
             enviarMarcacao(loginField.text, passwd : passwdField.text);
             
             atualizarDadosMarcacao("data marcacao")
-
-            //println(retorno)
             
             //self.marcacaoLabel.text = retorno as! String;
             //self.dataMarcacaoField.text = dataMarcacao;
-//        } else {
-//            controlFieldContent(loginHasValue, passwdHasValue: passwdHasValue);
-//            var userDefaults = NSUserDefaults.standardUserDefaults();
-//            userDefaults.setObject(nil, forKey: param_params);
+            //        } else {
+            //            controlFieldContent(loginHasValue, passwdHasValue: passwdHasValue);
+            //            var userDefaults = NSUserDefaults.standardUserDefaults();
+            //            userDefaults.setObject(nil, forKey: param_params);
         }
         
         hasSubmitted = true;
     }
-
+    
     func updateValuesControl() {
         self.loginHasValue = count(loginField.text) != 0;
         self.passwdHasValue = count(passwdField.text) != 0;
@@ -133,17 +145,16 @@ class MainViewController: UIViewController {
     
     func enviarMarcacao(login: String, passwd: String) {
         let htmlRequest = HtmlRequest();
-        htmlRequest.doPost(login, passwd : passwd) { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        htmlRequest.post(login, passwd : passwd) { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             
-            var httpResponse = response as! NSHTTPURLResponse;
-            var responseHeaders = httpResponse.allHeaderFields as Dictionary;
-            //var tese: AnyObject? = responseHeaders["statusCode"]
-            self.dataMarcacaoField.text = responseHeaders["timeF"] as! String;
-            //sresponseHeaders.status
+            var dataStr =  NSString.init(data:data, encoding:NSUTF8StringEncoding)!;
+            var jsFunctionText = NSString(format: "var response = %@; var msg = response.msg.msg;", dataStr);
+            var context = JSContext(virtualMachine: JSVirtualMachine());
+            context.evaluateScript(String(jsFunctionText));
             
-            //var te: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: nil)
-            //var tes = NSJSONSerialization.dataWithJSONObject(te!, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
-            //println(tes)
+            var msg: String = String(stringInterpolationSegment: context.objectForKeyedSubscript("msg"));
+            var alert = UIAlertView(title:"Marcação", message:msg, delegate:self, cancelButtonTitle:nil, otherButtonTitles:"Ok");
+            alert.show();
         }
     }
     
@@ -155,5 +166,26 @@ class MainViewController: UIViewController {
         userDefaults.setObject(params, forKey: param_params);
         
         
+    }
+    
+    func recuperarDataAtualServidor() {
+        
+        let htmlRequest = HtmlRequest();
+        htmlRequest.get() { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            
+            var dataStr =  NSString.init(data:data, encoding:NSUTF8StringEncoding)!;
+            var jsFunctionText = NSString(format: "var response = %@; var data = response.deviceInfo.dtTimeEvent;", dataStr);
+            var context = JSContext(virtualMachine: JSVirtualMachine());
+            context.evaluateScript(String(jsFunctionText));
+            
+            self.dataMarcacao = context.objectForKeyedSubscript("data").toDate();
+            
+            self.dataMarcacaoField.text = self.dateFormatter.stringFromDate(self.dataMarcacao);
+        }
+    }
+    
+    func onTimer() {
+        self.dataMarcacao = dataMarcacao.dateByAddingTimeInterval(1);
+        self.dataMarcacaoField.text = dateFormatter.stringFromDate(self.dataMarcacao);
     }
 }

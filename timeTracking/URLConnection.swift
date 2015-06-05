@@ -10,7 +10,7 @@ import UIKit
 
 class URLConnection: NSObject {
     
-    func post(params : Dictionary<NSString, NSString>, headers : Dictionary<NSString, NSString>, url : String, callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
+    func doPost(params : Dictionary<NSString, NSString>, headers : Dictionary<NSString, NSString>, url : String, callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
         var session = NSURLSession.sharedSession()
         request.HTTPMethod = "POST"
@@ -39,7 +39,25 @@ class URLConnection: NSObject {
         request.HTTPBody = contentString.dataUsingEncoding(NSUTF8StringEncoding)
         
         var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            let req = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+            
+            callBack?(data: data, response: response, error: error)
+            
+        })
+        
+        task.resume()
+    }
+    
+    func doGet(headers : Dictionary<NSString, NSString>, url : String, callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
+        
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        var session = NSURLSession.sharedSession()
+        request.HTTPMethod = "GET"
+        
+        for header in headers {
+            request.addValue((header.1 as! String), forHTTPHeaderField: header.0 as! String)
+        }
+        
+        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
             callBack?(data: data, response: response, error: error)
             

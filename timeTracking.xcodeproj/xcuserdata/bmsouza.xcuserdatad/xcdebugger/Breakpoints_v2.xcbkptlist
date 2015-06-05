@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timeTracking/MainViewController.swift"
-            timestampString = "454982286.907797"
+            timestampString = "455225543.263529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "registrar(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "timeTracking/MainViewController.swift"
-            timestampString = "454982286.907797"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "registrar(_:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "enviarMarcacao(_:passwd:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,13 +26,125 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timeTracking/MainViewController.swift"
-            timestampString = "454985867.551564"
+            timestampString = "455225543.263529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "enviarMarcacao(_:passwd:)"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "recuperarDataAtualServidor()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timeTracking/HtmlRequest.swift"
+            timestampString = "455222421.328864"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "get(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timeTracking/URLConnection.swift"
+            timestampString = "455225385.434355"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "doGet(_:url:callBack:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timeTracking/URLConnection.swift"
+            timestampString = "455225385.434355"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "doGet(_:url:callBack:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "timeTracking.URLConnection.doGet (timeTracking.URLConnection)(Swift.Dictionary&lt;ObjectiveC.NSString, ObjectiveC.NSString&gt;, url : Swift.String, callBack : Swift.Optional&lt;(data : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSData&gt;, response : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSURLResponse&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSError&gt;) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "timeTracking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bmsouza/Developers/timeTracking/timeTracking/URLConnection.swift"
+                  timestampString = "455222722.376097"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "1591">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "timeTracking.URLConnection.(doGet (timeTracking.URLConnection) -&gt; (Swift.Dictionary&lt;ObjectiveC.NSString, ObjectiveC.NSString&gt;, url : Swift.String, callBack : Swift.Optional&lt;(data : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSData&gt;, response : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSURLResponse&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;ObjectiveC.NSError&gt;) -&gt; ()&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "timeTracking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bmsouza/Developers/timeTracking/timeTracking/URLConnection.swift"
+                  timestampString = "455222722.376411"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timeTracking/URLConnection.swift"
+            timestampString = "455225385.434355"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "doGet(_:url:callBack:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "timeTracking/MainViewController.swift"
+            timestampString = "455225543.263529"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "MainViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

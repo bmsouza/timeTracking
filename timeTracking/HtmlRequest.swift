@@ -11,6 +11,7 @@ import UIKit
 class HtmlRequest: NSObject {
     
     let URL_TT_CHECK_IN_OUT = "https://tt.ciandt.com/.net/index.ashx/SaveTimmingEvent" as String;
+    let URL_TT_TIME = "https://tt.ciandt.com/.net/index.ashx/GetClockDeviceInfo?deviceID=2";
     
     let headers =
        ["Content-type" : "application/x-www-form-urlencoded",
@@ -56,10 +57,14 @@ class HtmlRequest: NSObject {
         "dtTmFmt" : "d/m/Y H:i:s",
         "language" : "0"] as Dictionary<NSString, NSString>;
     
-    func doPost(user : String, passwd : String, callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
+    func post(user : String, passwd : String, callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
         params["userName"] = user;
         params["password"] = passwd;
-        
-        URLConnection().post(params, headers:headers, url: URL_TT_CHECK_IN_OUT, callBack: callBack);
+
+        URLConnection().doPost(params, headers:headers, url: URL_TT_CHECK_IN_OUT, callBack: callBack);
+    }
+    
+    func get(callBack: ((data: NSData!, response: NSURLResponse!, error: NSError!) -> Void)?) {
+        URLConnection().doGet(headers, url: URL_TT_TIME, callBack: callBack);
     }
 }
